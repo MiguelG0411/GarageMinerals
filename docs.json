@@ -1,0 +1,177 @@
+[
+ {
+  "folder": "e300",
+  "file": "FEBRERO_2026.pdf",
+  "title": "Febrero 2026",
+  "period": "2026-02",
+  "info": "Alimentación 120 TM · Concentrado 2 TM (Cu 8%)"
+ },
+ {
+  "folder": "e300",
+  "file": "MARZO_2026.pdf",
+  "title": "Marzo 2026",
+  "period": "2026-03",
+  "info": "Alimentación 140 TM · Concentrado 2 TM (Cu 18%)"
+ },
+ {
+  "folder": "e300",
+  "file": "JULIO_2026.pdf",
+  "title": "Julio 2026",
+  "period": "2026-07",
+  "info": "Sin producción"
+ },
+ {
+  "folder": "e100",
+  "file": "MARZO_2026.pdf",
+  "title": "Marzo 2026",
+  "period": "2026-03",
+  "info": "0 accidentados · 6 trabajadores · 1.056 HH"
+ },
+ {
+  "folder": "e100",
+  "file": "MAYO_2026.pdf",
+  "title": "Mayo 2026",
+  "period": "2026-05",
+  "info": "0 accidentados · 5 trabajadores · 804 HH"
+ },
+ {
+  "folder": "e100",
+  "file": "JUNIO_2026.pdf",
+  "title": "Junio 2026",
+  "period": "2026-06",
+  "info": "0 accidentados · 6 trabajadores · 1.008 HH"
+ },
+ {
+  "folder": "e100",
+  "file": "SEPTIEMBRE_2026.pdf",
+  "title": "Septiembre 2026",
+  "period": "2026-09",
+  "info": "0 accidentados · 7 trabajadores · 1.176 HH"
+ },
+ {
+  "folder": "e300",
+  "file": "ENERO_2026.pdf",
+  "title": "Enero 2026",
+  "period": "2026-01",
+  "info": "Sin producción"
+ },
+ {
+  "folder": "e300",
+  "file": "ABRIL_2026.pdf",
+  "title": "Abril 2026",
+  "period": "2026-04",
+  "info": "Alimentación 160 TM · Concentrado 3 TM (Cu 17%)"
+ },
+ {
+  "folder": "e100",
+  "file": "ENERO_2026.pdf",
+  "title": "Enero 2026",
+  "period": "2026-01",
+  "info": "0 accidentados · 6 trabajadores · 1.056 HH"
+ },
+ {
+  "folder": "e100",
+  "file": "FEBRERO_2026.pdf",
+  "title": "Febrero 2026",
+  "period": "2026-02",
+  "info": "0 accidentados · 6 trabajadores · 1.056 HH"
+ },
+ {
+  "folder": "e100",
+  "file": "ABRIL_2026.pdf",
+  "title": "Abril 2026",
+  "period": "2026-04",
+  "info": "0 accidentados · 6 trabajadores · 1.056 HH"
+ },
+ {
+  "folder": "e100",
+  "file": "JULIO_2026.pdf",
+  "title": "Julio 2026",
+  "period": "2026-07",
+  "info": "0 accidentados · 6 trabajadores · 1.008 HH"
+ },
+ {
+  "folder": "e100",
+  "file": "AGOSTO_2026.pdf",
+  "title": "Agosto 2026",
+  "period": "2026-08",
+  "info": "0 accidentados · 6 trabajadores · 1.008 HH"
+ },
+ {
+  "folder": "visitas",
+  "file": "Visita_tecnica_canaletas_embalse_relave.pdf",
+  "title": "Visita técnica: canaleta, conducción y piscina",
+  "period": "2026-08-16",
+  "info": "16 ago 2026 · MG Consultorías · Canaleta 130 m, tubería HDPE 56 m, piscina con sedimentos"
+ },
+ {
+  "folder": "visitas",
+  "file": "Trabajos_geotecnicos_relave.pdf",
+  "title": "Términos de referencia: evaluación geotécnica",
+  "period": "2026-08-00",
+  "info": "MG Consultorías · Línea base del embalse, hipótesis A/B y matriz de cumplimiento 2014"
+ },
+ {
+  "folder": "resoluciones",
+  "file": "Resolucion_ext_0187_cambio_de_titularidad.pdf",
+  "title": "Res. Ex. N° 0187 · Cambio de titularidad",
+  "period": "2025-04-09",
+  "info": "9 abr 2025 · Garage Minerals SpA como nuevo titular del embalse"
+ },
+ {
+  "folder": "resoluciones",
+  "file": "Resolucion_ext_1012_Plan_de_cierre.pdf",
+  "title": "Res. Ex. N° 1.012 · Plan de cierre",
+  "period": "2024-11-11",
+  "info": "11 nov 2024 · Aprueba plan de cierre Planta Diego de Almagro"
+ },
+ {
+  "folder": "resoluciones",
+  "file": "Resolucion_ext_800_aprobacion_relave.pdf",
+  "title": "Res. Ex. N° 800 · Aprobación embalse de relaves",
+  "period": "2014-12-23",
+  "info": "23 dic 2014 · Aprueba proyecto embalse (titular original Minera Aloe S.A.)"
+ },
+ {
+  "folder": "resoluciones",
+  "file": "Proyecto_embalse_relaves_2014.pdf",
+  "title": "Proyecto Embalse de Relaves 2014",
+  "period": "2014-10-01",
+  "info": "Oct 2014 · Proyecto técnico aprobado por la Res. N° 800"
+ },
+ {
+  "folder": "visitas",
+  "file": "Informe_topografico_embalse_relave.pdf",
+  "title": "Informe topográfico del embalse de relaves",
+  "period": "2026-03-09",
+  "info": "9 mar 2026 · Topógrafo Miguel González L. · Volumen actual 9.342,68 m³ (20,9%)"
+ },
+ {
+  "folder": "visitas",
+  "file": "carta_extension_tranque_de_relave.pdf",
+  "title": "Carta de solicitud de prórroga de vigencia",
+  "period": "2026-03-18",
+  "info": "18 mar 2026 · Garage Minerals a SERNAGEOMIN · Prórroga del proyecto embalse"
+ },
+ {
+  "folder": "visitas",
+  "file": "Cronograma_Produccion_Embalse_Relaves.pdf",
+  "title": "Cronograma de producción del embalse",
+  "period": "2026-03-19",
+  "info": "Garage Minerals · Saldo de 35.316 m³ en 18 meses · Respaldo de la prórroga"
+ },
+ {
+  "folder": "sernageomin",
+  "file": "evidencia_1_embalse.pdf",
+  "title": "Fiscalización 2026 · Hallazgo 1: embalse de relaves",
+  "period": "2026-09-10b",
+  "info": "10 sep 2026 · Evelyn Fribla · Depósito en actividad productiva sin aprobación vigente"
+ },
+ {
+  "folder": "sernageomin",
+  "file": "evidencia_2_condiciones_subestandar.pdf",
+  "title": "Fiscalización 2026 · Hallazgo 2: condiciones subestándar",
+  "period": "2026-09-10a",
+  "info": "10 sep 2026 · Evelyn Fribla · Molienda: derrames, sala eléctrica, protecciones, escaleras, reactivos"
+ }
+]

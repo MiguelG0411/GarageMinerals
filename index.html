@@ -103,6 +103,7 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
       <button class="folder fsng" data-f="sernageomin"><span class="tab">🏛️</span><span><b>Visitas SERNAGEOMIN</b><small>Fiscalizaciones y hallazgos</small></span><span class="n" id="nsng">0</span></button>
       <button class="folder fres" data-f="resoluciones"><span class="tab">📜</span><span><b>Resoluciones exentas</b><small>Aprobaciones de SERNAGEOMIN</small></span><span class="n" id="nres">0</span></button>
     </div>
+    <p class="note" id="ver" style="text-align:center;margin-top:22px"></p>
   </main>
 
   <main id="folder" hidden>
@@ -156,7 +157,8 @@ async function load(){
 }
 function all(f){return [...DOCS.filter(d=>d.folder===f).map(d=>({...d,src:f+'/'+encodeURIComponent(d.file)})),
   ...LOCAL.filter(d=>d.folder===f).map(d=>({...d,local:true}))].sort((a,b)=>(b.period||'').localeCompare(a.period||'')||a.title.localeCompare(b.title))}
-function counts(){$('#n300').textContent=all('e300').length;$('#n100').textContent=all('e100').length;$('#n700').textContent=all('e700').length;$('#nvis').textContent=all('visitas').length;$('#nres').textContent=all('resoluciones').length;$('#nsng').textContent=all('sernageomin').length}
+function counts(){$('#n300').textContent=all('e300').length;$('#n100').textContent=all('e100').length;$('#n700').textContent=all('e700').length;$('#nvis').textContent=all('visitas').length;$('#nres').textContent=all('resoluciones').length;$('#nsng').textContent=all('sernageomin').length;
+  const tot=DOCS.length+LOCAL.length;$('#ver').textContent=tot+' documentos · Versión del 9 de octubre de 2026'}
 
 /* ---------- views ---------- */
 function showHome(){cur=null;$('#home').hidden=false;$('#folder').hidden=true;$('#back').hidden=true;$('#logo').hidden=false;

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Garage Docs">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FFFFFF">
+<title>Documentación Garage Minerals</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF0F2; --surface:#FFFFFF; --ink:#17222C; --muted:#5F6B76; --line:#D7DCE1;
+  --accent:#24323F; --copper:#B85F2C; --copper-soft:#F3E3D8; --blue:#2F6FA8; --blue-soft:#DDE8F3; --green:#2E7D5B; --green-soft:#DDEFE5; --violet:#6B4FA0; --violet-soft:#E9E2F4; --teal:#1F7A80; --teal-soft:#DAEEEF; --red:#B8322A; --red-soft:#F6DEDB; --ok:#1F8A5B;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#10171E; --surface:#18222C; --ink:#E6ECF1; --muted:#95A2AE; --line:#2B3946;
+    --accent:#C9D4DE; --copper:#E39566; --copper-soft:#3A2619; --blue:#7FAEDB; --blue-soft:#1C2F42; --green:#6FC59A; --green-soft:#1B3528; --violet:#B39DDB; --violet-soft:#2A2140; --teal:#6CC3C8; --teal-soft:#183538; --red:#EE8A80; --red-soft:#3D1F1C; --ok:#6FCB98;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10171E; --surface:#18222C; --ink:#E6ECF1; --muted:#95A2AE; --line:#2B3946;
+  --accent:#C9D4DE; --copper:#E39566; --copper-soft:#3A2619; --blue:#7FAEDB; --blue-soft:#1C2F42; --green:#6FC59A; --green-soft:#1B3528; --violet:#B39DDB; --violet-soft:#2A2140; --teal:#6CC3C8; --teal-soft:#183538; --red:#EE8A80; --red-soft:#3D1F1C; --ok:#6FCB98;
+}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+  font-family:"Figtree",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+.wrap{max-width:620px;margin:0 auto;padding:12px 18px 40px}
+.top{display:flex;align-items:center;gap:10px;margin:6px 0 18px}
+.logo{width:56px;height:56px;flex:none;display:block}
+.top h1{font-size:1.35rem;line-height:1.2;font-weight:800;letter-spacing:-.02em;margin:0;flex:1}
+.top small{display:block;color:var(--muted);font-size:.85rem;font-weight:500;letter-spacing:0}
+.back{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-size:1.3rem;display:grid;place-items:center}
+
+/* folders */
+.folders{display:grid;gap:14px}
+/* pendientes */
+.pendbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--ink);color:var(--bg);border:0;border-radius:22px;padding:16px 18px;margin-bottom:16px}
+.pendbtn .ic{font-size:1.8rem}
+.pendbtn b{display:block;font-size:1.1rem}
+.pendbtn small{opacity:.8}
+.pendbtn .arr{margin-left:auto;font-size:1.4rem;opacity:.7}
+.psec{margin:22px 0 8px}
+.psec h2{font-size:1.05rem;margin:0}
+.psec small{color:var(--muted)}
+.pitem{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
+.pitem.done{opacity:.55}
+.pitem.done .pt{text-decoration:line-through}
+.ph{display:flex;gap:10px;align-items:flex-start}
+.ph input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--ok);flex:none}
+.pt{font-weight:700;flex:1}
+.chip{font-size:.75rem;font-weight:700;border-radius:999px;padding:3px 9px;white-space:nowrap;flex:none}
+.chip.venc{background:var(--red-soft);color:var(--red)}
+.chip.prox{background:var(--copper-soft);color:var(--copper)}
+.chip.ok{background:var(--green-soft);color:var(--green)}
+.chip.sin{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.pd{color:var(--muted);font-size:.92rem;margin:8px 0 0 32px}
+.ptasks{list-style:none;margin:8px 0 0 32px;padding:0}
+.ptasks li{display:flex;gap:8px;align-items:flex-start;font-size:.92rem;padding:4px 0}
+.ptasks input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--ok);flex:none}
+.ptasks li.done span{text-decoration:line-through;color:var(--muted)}
+.psrc{margin:10px 0 0 32px;border:0;background:none;color:var(--blue);font-weight:600;padding:0;font-size:.88rem}
+.pfoot{display:flex;gap:10px;margin-top:18px}
+.pfoot button{flex:1;padding:13px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-weight:700}
+
+.folder{display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px}
+.folder .tab{width:64px;height:56px;border-radius:8px 14px 14px 14px;position:relative;flex:none;display:grid;place-items:center;font-weight:800;font-size:.95rem;color:#fff}
+.folder .tab::before{content:"";position:absolute;left:0;top:-7px;width:28px;height:10px;border-radius:6px 6px 0 0;background:inherit}
+.folder b{display:block;font-size:1.15rem;font-weight:800}
+.folder small{color:var(--muted)}
+.folder .n{margin-left:auto;font-weight:800;font-size:1.4rem;color:var(--muted)}
+.f300 .tab{background:var(--copper)} .f100 .tab{background:var(--blue)} .f700 .tab{background:var(--teal)} .fvis .tab{background:var(--green);font-size:1.5rem} .fres .tab{background:var(--violet);font-size:1.5rem} .fsng .tab{background:var(--red);font-size:1.5rem}
+
+.search{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);margin-bottom:14px}
+.list{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:2px 14px}
+.doc{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:none;padding:14px 0}
+.doc:last-child{border-bottom:0}
+.doc .ic{width:40px;height:48px;border-radius:6px;background:var(--hc-soft);color:var(--hc);display:grid;place-items:center;font-size:.7rem;font-weight:800;flex:none;border:1px solid var(--line)}
+.doc .t{flex:1;min-width:0}
+.doc b{display:block;font-weight:700}
+.doc small{color:var(--muted);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc .chev{color:var(--muted);font-size:1.3rem}
+.tag{display:inline-block;font-size:.7rem;font-weight:700;color:var(--ok);border:1px solid var(--ok);border-radius:6px;padding:0 5px;margin-left:6px;vertical-align:1px}
+.addbtn{width:100%;margin-top:14px;padding:14px;border-radius:16px;border:1px dashed var(--line);background:none;color:var(--ink);font-weight:700}
+.empty{color:var(--muted);text-align:center;padding:26px 10px}
+.note{font-size:.82rem;color:var(--muted);margin:12px 4px 0}
+
+/* viewer */
+.viewer{position:fixed;inset:0;background:var(--bg);z-index:20;display:none;flex-direction:column}
+.viewer.open{display:flex}
+.vbar{display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;background:var(--surface);border-bottom:1px solid var(--line)}
+.vbar .tt{flex:1;min-width:0}
+.vbar .tt b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vbar .tt small{color:var(--muted)}
+.vbtn{min-width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-weight:700;font-size:1rem;padding:0 10px}
+.pages{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:12px 10px calc(70px + env(safe-area-inset-bottom,0px))}
+.pages canvas{display:block;margin:0 auto 12px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.18);border-radius:4px}
+.zoom{position:absolute;right:14px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.loading{color:var(--muted);text-align:center;padding:40px 0}
+.toast{position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);
+  padding:10px 18px;border-radius:999px;font-weight:600;font-size:.9rem;opacity:0;transition:opacity .2s;z-index:40;pointer-events:none}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <button class="back" id="back" aria-label="Volver" hidden>‹</button>
+    <img class="logo" id="logo" src="icons/logo.png" alt="Garage Inc.">
+    <h1 id="title">Documentación Garage Minerals<small>SERNAGEOMIN · Planta Diego de Almagro</small></h1>
+  </header>
+
+  <main id="home">
+    <button class="pendbtn" id="pendBtn"><span class="ic">📋</span><span><b>Pendientes con SERNAGEOMIN</b><small id="pendSub">Resumen de trabajos y plazos</small></span><span class="arr">›</span></button>
+    <div class="folders">
+      <button class="folder f300" data-f="e300"><span class="tab">E300</span><span><b>Producción</b><small>Declaraciones E-300</small></span><span class="n" id="n300">0</span></button>
+      <button class="folder f100" data-f="e100"><span class="tab">E100</span><span><b>Accidentabilidad</b><small>Declaraciones E-100</small></span><span class="n" id="n100">0</span></button>
+      <button class="folder f700" data-f="e700"><span class="tab">E700</span><span><b>E700</b><small>Declaraciones E-700</small></span><span class="n" id="n700">0</span></button>
+      <button class="folder fvis" data-f="visitas"><span class="tab">🔍</span><span><b>Reporte de visitas técnicas</b><small>Informes y estudios en terreno</small></span><span class="n" id="nvis">0</span></button>
+      <button class="folder fsng" data-f="sernageomin"><span class="tab">🏛️</span><span><b>Visitas SERNAGEOMIN</b><small>Fiscalizaciones y hallazgos</small></span><span class="n" id="nsng">0</span></button>
+      <button class="folder fres" data-f="resoluciones"><span class="tab">📜</span><span><b>Resoluciones exentas</b><small>Aprobaciones de SERNAGEOMIN</small></span><span class="n" id="nres">0</span></button>
+    </div>
+    <p class="note" id="ver" style="text-align:center;margin-top:22px"></p>
+  </main>
+
+  <main id="pend" hidden><div id="pendBody"></div>
+    <div class="pfoot"><button id="pShare">⤴ Compartir resumen</button></div>
+    <p class="note" id="pendNote"></p>
+  </main>
+
+  <main id="folder" hidden>
+    <input class="search" id="q" type="search" placeholder="Buscar documento">
+    <div class="list" id="docs"></div>
+    <label class="addbtn" style="display:block;text-align:center">+ Agregar PDF desde el teléfono<input type="file" id="add" accept="application/pdf,.pdf" multiple hidden></label>
+    <p class="note">Los PDF que agregas desde el teléfono quedan guardados solo en este dispositivo y se marcan como <span class="tag" style="margin:0">Local</span>. Para borrar uno, ábrelo y toca 🗑.</p>
+  </main>
+</div>
+
+<section class="viewer" id="viewer" role="dialog" aria-label="Documento">
+  <div class="vbar">
+    <button class="vbtn" id="vClose" aria-label="Cerrar">‹</button>
+    <div class="tt"><b id="vTitle"></b><small id="vSub"></small></div>
+    <button class="vbtn" id="vDel" aria-label="Eliminar del teléfono" hidden>🗑</button><button class="vbtn" id="vShare" aria-label="Compartir">⤴</button>
+  </div>
+  <div class="pages" id="pages"></div>
+  <div class="zoom"><button class="vbtn" id="zOut" aria-label="Alejar">−</button><button class="vbtn" id="zIn" aria-label="Acercar">+</button></div>
+</section>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const FOLD={e300:{label:'E300',sub:'Producción',c:'var(--copper)',s:'var(--copper-soft)'},e100:{label:'E100',sub:'Accidentabilidad',c:'var(--blue)',s:'var(--blue-soft)'},e700:{label:'E700',sub:'Declaraciones E-700',c:'var(--teal)',s:'var(--teal-soft)'},visitas:{label:'Visitas técnicas',sub:'Reportes e informes en terreno',c:'var(--green)',s:'var(--green-soft)',short:'VISITA'},sernageomin:{label:'Visitas SERNAGEOMIN',sub:'Fiscalizaciones y hallazgos',c:'var(--red)',s:'var(--red-soft)',short:'SNGM'},resoluciones:{label:'Resoluciones exentas',sub:'Aprobaciones de SERNAGEOMIN',c:'var(--violet)',s:'var(--violet-soft)',short:'RES'}};
+const MESES=['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+let tt;function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('show'),2200)}
+if(window.pdfjsLib)pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+/* ---------- local PDFs (IndexedDB) ---------- */
+let dbp=null;
+function idb(){if(dbp)return dbp;dbp=new Promise((res,rej)=>{const r=indexedDB.open('declaraciones',1);
+  r.onupgradeneeded=()=>r.result.createObjectStore('pdfs',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});return dbp}
+async function tx(mode,fn){const db=await idb();return new Promise((res,rej)=>{const t=db.transaction('pdfs',mode),st=t.objectStore('pdfs'),out=fn(st);t.oncomplete=()=>res(out&&out.result);t.onerror=()=>rej(t.error)})}
+const localAll=()=>tx('readonly',s=>s.getAll()).catch(()=>[]);
+const localPut=o=>tx('readwrite',s=>s.put(o));
+const localDel=id=>tx('readwrite',s=>s.delete(id));
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+
+/* ---------- data ---------- */
+let DOCS=[],LOCAL=[],cur=null;
+function guessTitle(name){const n=name.replace(/\.pdf$/i,'').replace(/[_-]+/g,' ').trim();const U=n.toUpperCase();
+  const mi=MESES.findIndex(m=>U.includes(m)),y=(U.match(/20\d\d/)||[])[0];
+  if(mi>=0)return{title:MESES[mi][0]+MESES[mi].slice(1).toLowerCase()+(y?' '+y:''),period:y?y+'-'+String(mi+1).padStart(2,'0'):''};
+  return{title:n,period:''}}
+async function load(){
+  try{const r=await fetch('docs.json',{cache:'no-cache'});DOCS=await r.json()}catch(e){DOCS=[]}
+  try{const r=await fetch('pendientes.json',{cache:'no-cache'});PEND=await r.json()}catch(e){PEND=null}
+  LOCAL=await localAll();counts();
+}
+function all(f){return [...DOCS.filter(d=>d.folder===f).map(d=>({...d,src:((d.dir!==undefined?d.dir:f)?(d.dir!==undefined?d.dir:f)+'/':'')+encodeURIComponent(d.file)})),
+  ...LOCAL.filter(d=>d.folder===f).map(d=>({...d,local:true}))].sort((a,b)=>(b.period||'').localeCompare(a.period||'')||a.title.localeCompare(b.title))}
+function counts(){$('#n300').textContent=all('e300').length;$('#n100').textContent=all('e100').length;$('#n700').textContent=all('e700').length;$('#nvis').textContent=all('visitas').length;$('#nres').textContent=all('resoluciones').length;$('#nsng').textContent=all('sernageomin').length;
+  const tot=DOCS.length+LOCAL.length;$('#ver').textContent=tot+' documentos · Versión del 9 de octubre de 2026'}
+
+/* ---------- views ---------- */
+function showHome(){cur=null;$('#home').hidden=false;$('#folder').hidden=true;$('#pend').hidden=true;pendSummary();$('#back').hidden=true;$('#logo').hidden=false;
+  $('#title').innerHTML='Documentación Garage Minerals<small>SERNAGEOMIN · Planta Diego de Almagro</small>';counts()}
+function showFolder(f){cur=f;$('#home').hidden=true;$('#pend').hidden=true;$('#folder').hidden=false;$('#back').hidden=false;$('#logo').hidden=true;$('#q').value='';
+  $('#title').innerHTML=esc(FOLD[f].label)+'<small>'+esc(FOLD[f].sub)+'</small>';renderList();window.scrollTo(0,0)}
+function renderList(){
+  const q=$('#q').value.trim().toLowerCase(),F=FOLD[cur];
+  const items=all(cur).filter(d=>!q||(d.title+' '+(d.info||'')+' '+(d.file||d.name||'')).toLowerCase().includes(q));
+  $('#docs').style.cssText=`--hc:${F.c};--hc-soft:${F.s}`;
+  $('#docs').innerHTML=items.length?items.map(d=>`<button class="doc" data-id="${esc(d.local?d.id:d.src)}" data-local="${d.local?1:''}"><span class="ic">PDF</span>
+    <span class="t"><b>${esc(d.title)}${d.local?'<span class="tag">Local</span>':''}</b><small>${esc(d.info||d.name||'')}</small></span><span class="chev">›</span></button>`).join('')
+    :'<div class="empty">'+(q?'No hay documentos que coincidan.':'Aún no hay documentos en esta carpeta.')+'</div>';
+}
+document.querySelectorAll('.folder').forEach(b=>b.onclick=()=>showFolder(b.dataset.f));
+$('#back').onclick=showHome;$('#q').oninput=renderList;
+$('#docs').onclick=e=>{const b=e.target.closest('.doc');if(!b)return;
+  const d=all(cur).find(x=>(b.dataset.local?x.id:x.src)===b.dataset.id);if(d)openDoc(d)};
+
+$('#add').onchange=async e=>{const files=[...e.target.files];e.target.value='';let n=0;
+  for(const f of files){if(!/pdf$/i.test(f.type)&&!/\.pdf$/i.test(f.name))continue;
+    const g=guessTitle(f.name);
+    try{await localPut({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),folder:cur,name:f.name,title:g.title,period:g.period,info:f.name,blob:f});n++}
+    catch(err){toast('No se pudo guardar '+f.name)}}
+  LOCAL=await localAll();renderList();if(n)toast(n===1?'PDF agregado':n+' PDF agregados')};
+
+/* ---------- viewer ---------- */
+let pdf=null,scale=1,doc=null,renderTok=0,blobForShare=null;
+async function openDoc(d){
+  doc=d;scale=1;$('#vDel').hidden=!d.local;$('#vTitle').textContent=d.title;$('#vSub').textContent=d.info||'';
+  $('#pages').innerHTML='<div class="loading">Abriendo documento…</div>';$('#viewer').classList.add('open');document.body.style.overflow='hidden';
+  history.pushState({v:1},'');
+  try{
+    if(!window.pdfjsLib)throw new Error('lib');
+    let data;
+    if(d.local){blobForShare=d.blob;data=new Uint8Array(await d.blob.arrayBuffer())}
+    else{const r=await fetch(d.src);if(!r.ok)throw new Error('net');const b=await r.blob();blobForShare=b;data=new Uint8Array(await b.arrayBuffer())}
+    pdf=await pdfjsLib.getDocument({data}).promise;await renderPages();
+  }catch(err){
+    $('#pages').innerHTML='<div class="loading">No se pudo abrir el documento.<br>'+(navigator.onLine?'':'Necesitas internet la primera vez que lo abres.')+'</div>';
+  }
+}
+async function renderPages(){
+  const tok=++renderTok,box=$('#pages'),w=Math.min(box.clientWidth-20,900),dpr=Math.min(window.devicePixelRatio||1,3);
+  box.innerHTML='';
+  for(let i=1;i<=pdf.numPages;i++){
+    if(tok!==renderTok)return;
+    const p=await pdf.getPage(i),base=p.getViewport({scale:1}),s=(w/base.width)*scale,vp=p.getViewport({scale:s*dpr});
+    const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;c.style.width=(vp.width/dpr)+'px';c.style.height=(vp.height/dpr)+'px';
+    box.appendChild(c);await p.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;
+    if(doc&&doc.pag===i&&i>1&&scale===1)c.scrollIntoView({block:'start'});
+  }
+}
+function closeViewer(){$('#viewer').classList.remove('open');document.body.style.overflow='';renderTok++;pdf=null}
+$('#vClose').onclick=()=>history.back();
+window.addEventListener('popstate',()=>{if($('#viewer').classList.contains('open'))closeViewer()});
+$('#zIn').onclick=()=>{if(!pdf||scale>=3)return;scale=Math.min(3,scale+0.5);renderPages()};
+$('#zOut').onclick=()=>{if(!pdf||scale<=1)return;scale=Math.max(1,scale-0.5);renderPages()};
+$('#vShare').onclick=async()=>{if(!blobForShare)return;const name=(doc.file||doc.name||'documento.pdf');
+  try{const f=new File([blobForShare],(FOLD[cur].short||FOLD[cur].label)+'_'+name,{type:'application/pdf'});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:doc.title});return}}catch(e){if(e&&e.name==='AbortError')return}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blobForShare);a.download=name;document.body.appendChild(a);a.click();a.remove()};
+$('#vDel').onclick=async()=>{if(!doc||!doc.local||!confirm('¿Eliminar este PDF del teléfono?'))return;
+  await localDel(doc.id);LOCAL=await localAll();history.back();renderList();toast('Eliminado')};
+
+
+/* ---------- pendientes ---------- */
+let PEND=null;const PK='garage-pend-v1';
+let PDONE={};try{PDONE=JSON.parse(localStorage.getItem(PK)||'{}')}catch(e){}
+const psave=()=>{try{localStorage.setItem(PK,JSON.stringify(PDONE))}catch(e){}};
+const TODAYS=(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')})();
+const dd=s=>Math.round((Date.parse(s+'T12:00:00')-Date.parse(TODAYS+'T12:00:00'))/864e5);
+const fd=s=>{const[y,m,d]=s.split('-');return d+'/'+m+'/'+y};
+function pstatus(it){
+  if(PDONE[it.id])return{c:'ok',t:'Hecho'};
+  if(!it.plazo)return{c:'sin',t:'Sin plazo'};
+  const n=dd(it.plazo);
+  if(n<0)return{c:'venc',t:'Vencido '+fd(it.plazo)};
+  if(n===0)return{c:'venc',t:'Vence hoy'};
+  if(n<=7)return{c:'prox',t:'Vence en '+n+(n===1?' día':' días')};
+  return{c:'sin',t:'Plazo '+fd(it.plazo)};
+}
+function pitems(){return PEND?PEND.secciones.flatMap(s=>s.items):[]}
+function pendSummary(){
+  const it=pitems();if(!it.length){$('#pendBtn').hidden=true;return}
+  $('#pendBtn').hidden=false;
+  const open=it.filter(x=>!PDONE[x.id]),venc=open.filter(x=>x.plazo&&dd(x.plazo)<=0).length,prox=open.filter(x=>x.plazo&&dd(x.plazo)>0&&dd(x.plazo)<=7).length;
+  $('#pendSub').textContent=open.length+' pendientes'+(venc?' · '+venc+' vencidos o vencen hoy':'')+(prox?' · '+prox+' por vencer':'');
+}
+function showPend(){cur=null;$('#home').hidden=true;$('#folder').hidden=true;$('#pend').hidden=false;$('#back').hidden=false;$('#logo').hidden=true;
+  $('#title').innerHTML='Pendientes<small>Trabajos y plazos con SERNAGEOMIN</small>';renderPend();window.scrollTo(0,0)}
+function renderPend(){
+  if(!PEND){$('#pendBody').innerHTML='<div class="empty">No se pudo cargar el resumen.</div>';return}
+  $('#pendBody').innerHTML=PEND.secciones.map(s=>`<div class="psec"><h2>${esc(s.titulo)}</h2><small>${esc(s.sub||'')}</small></div>`+s.items.map(it=>{const st=pstatus(it),done=!!PDONE[it.id];
+    return `<div class="pitem${done?' done':''}"><div class="ph"><input type="checkbox" data-p="${it.id}" ${done?'checked':''} aria-label="Marcar como hecho"><span class="pt">${esc(it.titulo)}</span><span class="chip ${st.c}">${esc(st.t)}</span></div>
+    <p class="pd">${esc(it.detalle)}</p>
+    ${it.tareas?`<ul class="ptasks">${it.tareas.map((t,i)=>{const k=it.id+'.'+i,dn=!!PDONE[k];return `<li class="${dn?'done':''}"><input type="checkbox" data-p="${k}" ${dn?'checked':''}><span>${esc(t)}</span></li>`}).join('')}</ul>`:''}
+    ${it.fuente?`<button class="psrc" data-src="${it.id}">📄 Ver documento${it.fuente.pag?' (pág. '+it.fuente.pag+')':''}</button>`:''}</div>`}).join('')).join('');
+  const it=pitems(),n=it.filter(x=>PDONE[x.id]).length;
+  $('#pendNote').textContent=`${n} de ${it.length} marcados como hechos en este teléfono. Resumen preparado a partir de los documentos de la app, actualizado al ${fd(PEND.actualizado)}. Revisa siempre el documento original.`;
+}
+$('#pendBtn').onclick=showPend;
+$('#pendBody').addEventListener('change',e=>{const c=e.target.closest('[data-p]');if(!c)return;
+  if(c.checked)PDONE[c.dataset.p]=1;else delete PDONE[c.dataset.p];
+  const k=c.dataset.p;if(!k.includes('.')){const it=pitems().find(x=>x.id===k);if(it&&it.tareas)it.tareas.forEach((_,i)=>{if(c.checked)PDONE[k+'.'+i]=1;else delete PDONE[k+'.'+i]})}
+  psave();renderPend()});
+$('#pendBody').addEventListener('click',e=>{const b=e.target.closest('[data-src]');if(!b)return;
+  const it=pitems().find(x=>x.id===b.dataset.src);if(!it)return;const f=it.fuente;
+  const d=all(f.folder).find(x=>x.file===f.file);if(!d){toast('No se encontró el documento');return}
+  cur=f.folder;openDoc({...d,pag:f.pag})});
+$('#pShare').onclick=async()=>{
+  const lines=['PENDIENTES CON SERNAGEOMIN – Planta Diego de Almagro',`(actualizado al ${fd(PEND.actualizado)})`,''];
+  PEND.secciones.forEach(s=>{lines.push('▶ '+s.titulo.toUpperCase());s.items.forEach(it=>{const st=pstatus(it);lines.push(`${PDONE[it.id]?'✅':'⬜'} ${it.titulo} [${st.t}]`);(it.tareas||[]).forEach((t,i)=>lines.push(`   ${PDONE[it.id+'.'+i]?'✅':'▫️'} ${t}`))});lines.push('')});
+  const text=lines.join('\n');
+  try{if(navigator.share){await navigator.share({title:'Pendientes SERNAGEOMIN',text});return}}catch(e){if(e&&e.name==='AbortError')return}
+  try{await navigator.clipboard.writeText(text);toast('Resumen copiado')}catch(e){toast('No se pudo compartir')}};
+
+load().then(showHome);
+if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
+})();
+</script>
+</body>
+</html>

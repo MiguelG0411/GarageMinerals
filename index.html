@@ -155,7 +155,7 @@ async function load(){
   try{const r=await fetch('docs.json',{cache:'no-cache'});DOCS=await r.json()}catch(e){DOCS=[]}
   LOCAL=await localAll();counts();
 }
-function all(f){return [...DOCS.filter(d=>d.folder===f).map(d=>({...d,src:f+'/'+encodeURIComponent(d.file)})),
+function all(f){return [...DOCS.filter(d=>d.folder===f).map(d=>({...d,src:((d.dir!==undefined?d.dir:f)?(d.dir!==undefined?d.dir:f)+'/':'')+encodeURIComponent(d.file)})),
   ...LOCAL.filter(d=>d.folder===f).map(d=>({...d,local:true}))].sort((a,b)=>(b.period||'').localeCompare(a.period||'')||a.title.localeCompare(b.title))}
 function counts(){$('#n300').textContent=all('e300').length;$('#n100').textContent=all('e100').length;$('#n700').textContent=all('e700').length;$('#nvis').textContent=all('visitas').length;$('#nres').textContent=all('resoluciones').length;$('#nsng').textContent=all('sernageomin').length;
   const tot=DOCS.length+LOCAL.length;$('#ver').textContent=tot+' documentos · Versión del 9 de octubre de 2026'}

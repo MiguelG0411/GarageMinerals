@@ -31,6 +31,7 @@
   --accent:#C9D4DE; --copper:#E39566; --copper-soft:#3A2619; --blue:#7FAEDB; --blue-soft:#1C2F42; --green:#6FC59A; --green-soft:#1B3528; --violet:#B39DDB; --violet-soft:#2A2140; --teal:#6CC3C8; --teal-soft:#183538; --red:#EE8A80; --red-soft:#3D1F1C; --ok:#6FCB98;
 }
 *,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
   font-family:"Figtree",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
@@ -47,6 +48,35 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 
 /* folders */
 .folders{display:grid;gap:14px}
+/* pendientes */
+.pendbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--ink);color:var(--bg);border:0;border-radius:22px;padding:16px 18px;margin-bottom:16px}
+.pendbtn .ic{font-size:1.8rem}
+.pendbtn b{display:block;font-size:1.1rem}
+.pendbtn small{opacity:.8}
+.pendbtn .arr{margin-left:auto;font-size:1.4rem;opacity:.7}
+.psec{margin:22px 0 8px}
+.psec h2{font-size:1.05rem;margin:0}
+.psec small{color:var(--muted)}
+.pitem{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
+.pitem.done{opacity:.55}
+.pitem.done .pt{text-decoration:line-through}
+.ph{display:flex;gap:10px;align-items:flex-start}
+.ph input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--ok);flex:none}
+.pt{font-weight:700;flex:1}
+.chip{font-size:.75rem;font-weight:700;border-radius:999px;padding:3px 9px;white-space:nowrap;flex:none}
+.chip.venc{background:var(--red-soft);color:var(--red)}
+.chip.prox{background:var(--copper-soft);color:var(--copper)}
+.chip.ok{background:var(--green-soft);color:var(--green)}
+.chip.sin{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.pd{color:var(--muted);font-size:.92rem;margin:8px 0 0 32px}
+.ptasks{list-style:none;margin:8px 0 0 32px;padding:0}
+.ptasks li{display:flex;gap:8px;align-items:flex-start;font-size:.92rem;padding:4px 0}
+.ptasks input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--ok);flex:none}
+.ptasks li.done span{text-decoration:line-through;color:var(--muted)}
+.psrc{margin:10px 0 0 32px;border:0;background:none;color:var(--blue);font-weight:600;padding:0;font-size:.88rem}
+.pfoot{display:flex;gap:10px;margin-top:18px}
+.pfoot button{flex:1;padding:13px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-weight:700}
+
 .folder{display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px}
 .folder .tab{width:64px;height:56px;border-radius:8px 14px 14px 14px;position:relative;flex:none;display:grid;place-items:center;font-weight:800;font-size:.95rem;color:#fff}
 .folder .tab::before{content:"";position:absolute;left:0;top:-7px;width:28px;height:10px;border-radius:6px 6px 0 0;background:inherit}
@@ -95,6 +125,7 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
   </header>
 
   <main id="home">
+    <button class="pendbtn" id="pendBtn"><span class="ic">📋</span><span><b>Pendientes con SERNAGEOMIN</b><small id="pendSub">Resumen de trabajos y plazos</small></span><span class="arr">›</span></button>
     <div class="folders">
       <button class="folder f300" data-f="e300"><span class="tab">E300</span><span><b>Producción</b><small>Declaraciones E-300</small></span><span class="n" id="n300">0</span></button>
       <button class="folder f100" data-f="e100"><span class="tab">E100</span><span><b>Accidentabilidad</b><small>Declaraciones E-100</small></span><span class="n" id="n100">0</span></button>
@@ -104,6 +135,11 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
       <button class="folder fres" data-f="resoluciones"><span class="tab">📜</span><span><b>Resoluciones exentas</b><small>Aprobaciones de SERNAGEOMIN</small></span><span class="n" id="nres">0</span></button>
     </div>
     <p class="note" id="ver" style="text-align:center;margin-top:22px"></p>
+  </main>
+
+  <main id="pend" hidden><div id="pendBody"></div>
+    <div class="pfoot"><button id="pShare">⤴ Compartir resumen</button></div>
+    <p class="note" id="pendNote"></p>
   </main>
 
   <main id="folder" hidden>
@@ -153,6 +189,7 @@ function guessTitle(name){const n=name.replace(/\.pdf$/i,'').replace(/[_-]+/g,' 
   return{title:n,period:''}}
 async function load(){
   try{const r=await fetch('docs.json',{cache:'no-cache'});DOCS=await r.json()}catch(e){DOCS=[]}
+  try{const r=await fetch('pendientes.json',{cache:'no-cache'});PEND=await r.json()}catch(e){PEND=null}
   LOCAL=await localAll();counts();
 }
 function all(f){return [...DOCS.filter(d=>d.folder===f).map(d=>({...d,src:((d.dir!==undefined?d.dir:f)?(d.dir!==undefined?d.dir:f)+'/':'')+encodeURIComponent(d.file)})),
@@ -161,9 +198,9 @@ function counts(){$('#n300').textContent=all('e300').length;$('#n100').textConte
   const tot=DOCS.length+LOCAL.length;$('#ver').textContent=tot+' documentos · Versión del 9 de octubre de 2026'}
 
 /* ---------- views ---------- */
-function showHome(){cur=null;$('#home').hidden=false;$('#folder').hidden=true;$('#back').hidden=true;$('#logo').hidden=false;
+function showHome(){cur=null;$('#home').hidden=false;$('#folder').hidden=true;$('#pend').hidden=true;pendSummary();$('#back').hidden=true;$('#logo').hidden=false;
   $('#title').innerHTML='Documentación Garage Minerals<small>SERNAGEOMIN · Planta Diego de Almagro</small>';counts()}
-function showFolder(f){cur=f;$('#home').hidden=true;$('#folder').hidden=false;$('#back').hidden=false;$('#logo').hidden=true;$('#q').value='';
+function showFolder(f){cur=f;$('#home').hidden=true;$('#pend').hidden=true;$('#folder').hidden=false;$('#back').hidden=false;$('#logo').hidden=true;$('#q').value='';
   $('#title').innerHTML=esc(FOLD[f].label)+'<small>'+esc(FOLD[f].sub)+'</small>';renderList();window.scrollTo(0,0)}
 function renderList(){
   const q=$('#q').value.trim().toLowerCase(),F=FOLD[cur];
@@ -209,6 +246,7 @@ async function renderPages(){
     const p=await pdf.getPage(i),base=p.getViewport({scale:1}),s=(w/base.width)*scale,vp=p.getViewport({scale:s*dpr});
     const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;c.style.width=(vp.width/dpr)+'px';c.style.height=(vp.height/dpr)+'px';
     box.appendChild(c);await p.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;
+    if(doc&&doc.pag===i&&i>1&&scale===1)c.scrollIntoView({block:'start'});
   }
 }
 function closeViewer(){$('#viewer').classList.remove('open');document.body.style.overflow='';renderTok++;pdf=null}
@@ -222,6 +260,58 @@ $('#vShare').onclick=async()=>{if(!blobForShare)return;const name=(doc.file||doc
   const a=document.createElement('a');a.href=URL.createObjectURL(blobForShare);a.download=name;document.body.appendChild(a);a.click();a.remove()};
 $('#vDel').onclick=async()=>{if(!doc||!doc.local||!confirm('¿Eliminar este PDF del teléfono?'))return;
   await localDel(doc.id);LOCAL=await localAll();history.back();renderList();toast('Eliminado')};
+
+
+/* ---------- pendientes ---------- */
+let PEND=null;const PK='garage-pend-v1';
+let PDONE={};try{PDONE=JSON.parse(localStorage.getItem(PK)||'{}')}catch(e){}
+const psave=()=>{try{localStorage.setItem(PK,JSON.stringify(PDONE))}catch(e){}};
+const TODAYS=(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')})();
+const dd=s=>Math.round((Date.parse(s+'T12:00:00')-Date.parse(TODAYS+'T12:00:00'))/864e5);
+const fd=s=>{const[y,m,d]=s.split('-');return d+'/'+m+'/'+y};
+function pstatus(it){
+  if(PDONE[it.id])return{c:'ok',t:'Hecho'};
+  if(!it.plazo)return{c:'sin',t:'Sin plazo'};
+  const n=dd(it.plazo);
+  if(n<0)return{c:'venc',t:'Vencido '+fd(it.plazo)};
+  if(n===0)return{c:'venc',t:'Vence hoy'};
+  if(n<=7)return{c:'prox',t:'Vence en '+n+(n===1?' día':' días')};
+  return{c:'sin',t:'Plazo '+fd(it.plazo)};
+}
+function pitems(){return PEND?PEND.secciones.flatMap(s=>s.items):[]}
+function pendSummary(){
+  const it=pitems();if(!it.length){$('#pendBtn').hidden=true;return}
+  $('#pendBtn').hidden=false;
+  const open=it.filter(x=>!PDONE[x.id]),venc=open.filter(x=>x.plazo&&dd(x.plazo)<=0).length,prox=open.filter(x=>x.plazo&&dd(x.plazo)>0&&dd(x.plazo)<=7).length;
+  $('#pendSub').textContent=open.length+' pendientes'+(venc?' · '+venc+' vencidos o vencen hoy':'')+(prox?' · '+prox+' por vencer':'');
+}
+function showPend(){cur=null;$('#home').hidden=true;$('#folder').hidden=true;$('#pend').hidden=false;$('#back').hidden=false;$('#logo').hidden=true;
+  $('#title').innerHTML='Pendientes<small>Trabajos y plazos con SERNAGEOMIN</small>';renderPend();window.scrollTo(0,0)}
+function renderPend(){
+  if(!PEND){$('#pendBody').innerHTML='<div class="empty">No se pudo cargar el resumen.</div>';return}
+  $('#pendBody').innerHTML=PEND.secciones.map(s=>`<div class="psec"><h2>${esc(s.titulo)}</h2><small>${esc(s.sub||'')}</small></div>`+s.items.map(it=>{const st=pstatus(it),done=!!PDONE[it.id];
+    return `<div class="pitem${done?' done':''}"><div class="ph"><input type="checkbox" data-p="${it.id}" ${done?'checked':''} aria-label="Marcar como hecho"><span class="pt">${esc(it.titulo)}</span><span class="chip ${st.c}">${esc(st.t)}</span></div>
+    <p class="pd">${esc(it.detalle)}</p>
+    ${it.tareas?`<ul class="ptasks">${it.tareas.map((t,i)=>{const k=it.id+'.'+i,dn=!!PDONE[k];return `<li class="${dn?'done':''}"><input type="checkbox" data-p="${k}" ${dn?'checked':''}><span>${esc(t)}</span></li>`}).join('')}</ul>`:''}
+    ${it.fuente?`<button class="psrc" data-src="${it.id}">📄 Ver documento${it.fuente.pag?' (pág. '+it.fuente.pag+')':''}</button>`:''}</div>`}).join('')).join('');
+  const it=pitems(),n=it.filter(x=>PDONE[x.id]).length;
+  $('#pendNote').textContent=`${n} de ${it.length} marcados como hechos en este teléfono. Resumen preparado a partir de los documentos de la app, actualizado al ${fd(PEND.actualizado)}. Revisa siempre el documento original.`;
+}
+$('#pendBtn').onclick=showPend;
+$('#pendBody').addEventListener('change',e=>{const c=e.target.closest('[data-p]');if(!c)return;
+  if(c.checked)PDONE[c.dataset.p]=1;else delete PDONE[c.dataset.p];
+  const k=c.dataset.p;if(!k.includes('.')){const it=pitems().find(x=>x.id===k);if(it&&it.tareas)it.tareas.forEach((_,i)=>{if(c.checked)PDONE[k+'.'+i]=1;else delete PDONE[k+'.'+i]})}
+  psave();renderPend()});
+$('#pendBody').addEventListener('click',e=>{const b=e.target.closest('[data-src]');if(!b)return;
+  const it=pitems().find(x=>x.id===b.dataset.src);if(!it)return;const f=it.fuente;
+  const d=all(f.folder).find(x=>x.file===f.file);if(!d){toast('No se encontró el documento');return}
+  cur=f.folder;openDoc({...d,pag:f.pag})});
+$('#pShare').onclick=async()=>{
+  const lines=['PENDIENTES CON SERNAGEOMIN – Planta Diego de Almagro',`(actualizado al ${fd(PEND.actualizado)})`,''];
+  PEND.secciones.forEach(s=>{lines.push('▶ '+s.titulo.toUpperCase());s.items.forEach(it=>{const st=pstatus(it);lines.push(`${PDONE[it.id]?'✅':'⬜'} ${it.titulo} [${st.t}]`);(it.tareas||[]).forEach((t,i)=>lines.push(`   ${PDONE[it.id+'.'+i]?'✅':'▫️'} ${t}`))});lines.push('')});
+  const text=lines.join('\n');
+  try{if(navigator.share){await navigator.share({title:'Pendientes SERNAGEOMIN',text});return}}catch(e){if(e&&e.name==='AbortError')return}
+  try{await navigator.clipboard.writeText(text);toast('Resumen copiado')}catch(e){toast('No se pudo compartir')}};
 
 load().then(showHome);
 if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
